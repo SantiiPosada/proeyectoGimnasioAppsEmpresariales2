@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title th:text="#{ListarClasesImpartir.titles}"></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+<link
+	href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css"
+	rel="stylesheet">
+<link th:href="@{/css/StyleListar.css}" rel="stylesheet" />
+<link th:href="@{/css/shards.min.css}" rel="stylesheet" />
+
+
+</head>
+<body>
+
+	<div th:insert=Plantilla/MenuAdministrador :: Menu></div>
+	<div class="row1">
+		<div class="listado1">
+			
+
+			</select>
+			<div th:insert=Plantilla/Mensaje :: Mensajes></div>
+			<div th:switch="${claseimpartir}" class="container my-5">
+				<div class="col-md-6">
+					<h2 th:case="null"></h2>
+					<div th:case="*">
+						<h2 class="my-5" th:text="#{ListarClasesImpartir.titles}"></h2>
+						<table class="table table-striped table-responsive-md">
+							<thead>
+
+								<tr>
+									<th th:text="#{ListarClasesImpartir.name}"></th>
+									<th th:text="#{ListarClasesImpartir.Modify}"></th>
+									<th th:text="#{ListarClasesImpartir.Delete}"></th>
+								</tr>
+
+							</thead>
+							<tbody>
+								<tr th:each="clasesimpartir : ${claseimpartir}">
+									<td th:text="${clasesimpartir.nombre}"></td>
+
+									<td><a
+										th:href="@{/IrEditarClaseImpartir/{id}(id=${clasesimpartir.id})}"
+										class="btn btn-primary"><i class="icon ion-md-cog"></i></a></td>
+									<td><a
+										th:href="@{/EliminarClaseImpartir/{id}(id=${clasesimpartir.id})}"
+										class="btn btn-primary"><i class="icon ion-md-close"></i></a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<p class="my-5">
+						<a href="/IrAgregarClaseImpartir" class="btn btn-primary"><i
+							class="icon ion-md-add"></i></a>
+					</p>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<script type="text/javascript">
+		$(document)
+				.ready(
+						function() {
+							$("#locales")
+									.change(
+											function() {
+												var selectedOption = $(
+														'#locales').val();
+												if (selectedOption != '') {
+													window.location
+															.replace('ListarClaseImpartir?lang='
+																	+ selectedOption);
+												}
+											});
+						});
+	</script>
+</body>
+</html>

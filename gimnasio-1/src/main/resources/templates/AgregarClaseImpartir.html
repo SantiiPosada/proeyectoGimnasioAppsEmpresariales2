@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title th:text="#{AgregarClaseImpartir.titles}"></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+
+<link
+	href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css"
+	rel="stylesheet">
+<link th:href="@{/css/StyleListar.css}" rel="stylesheet" />
+<link th:href="@{/css/shards.min.css}" rel="stylesheet" />
+
+
+</head>
+<body>
+
+	<div th:insert=Plantilla/MenuAdministrador :: Menu></div>
+
+	<div class="row1">
+		<h2 class="mb-5" th:text="#{AgregarClaseImpartir.titles}"></h2>
+		<div class="listado1">
+			<div th:insert=Plantilla/Mensaje :: Mensajes></div>
+			<form action="#" th:action="@{/AgregarClasesImpartir}"
+				th:object="${claseImpartir}" method="post">
+				<div class="row">
+					<div class="form-group col-md-6">
+						<label for="nombre" class="col-form-label"
+							th:text="#{AgregarClase.Name}"></label> <input type="text"
+							th:field="*{nombre}" class="form-control" id="nombre"
+							th:placeholder="#{AgregarClase.NameHolder}"> <span
+							th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"
+							class="text-danger"></span>
+					</div>
+
+
+				</div>
+				<div class="row">
+					<div class="col-md-6 mt-5">
+						<input type="submit" class="btn btn-primary"
+							th:value="#{AgregarClaseImpartir.buttonAddPartner}">
+					</div>
+
+				</div>
+			</form>
+
+			<form method="get" action="/ListarClaseImpartir">
+				<div class="row">
+					<div class="col-md-6 mt-5">
+						<input type="submit" class="btn btn-primary"
+							th:value="#{AgregarClaseImpartir.buttonReturn}">
+					</div>
+
+				</div>
+			</form>
+
+		</div>
+	</div>
+
+</body>
+</html>

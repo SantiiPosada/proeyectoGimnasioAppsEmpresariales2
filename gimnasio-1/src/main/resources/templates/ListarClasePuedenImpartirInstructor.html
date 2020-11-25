@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title th:text="#{ListarCpii.title}"></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+<link
+	href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css"
+	rel="stylesheet">
+<link th:href="@{/css/StyleListar.css}" rel="stylesheet" />
+<link th:href="@{/css/shards.min.css}" rel="stylesheet" />
+
+
+</head>
+<body>
+
+	<div th:insert=Plantilla/MenuAdministrador :: Menu></div>
+
+	<div class="row1">
+		<div class="listado1">
+		
+			<div th:insert=Plantilla/Mensaje :: Mensajes></div>
+			<h2 class="my-5 " th:text="#{ListarCpii.title}"></h2>
+			<div class="container my-5"
+				th:if="${clasesPuedenImpartirInstructor ==null}">
+				<h2 class="my-5 text-danger">No hay Clases Pueden Imparir
+					Instructor aun</h2>
+			</div>
+
+			<div th:switch="${clasesPuedenImpartirInstructor}"
+				class="container my-5">
+
+
+
+				<table class="table table-striped table-responsive-md">
+					<thead>
+						<tr>
+							<th th:text="#{ListarCpii.nameInstructor}"></th>
+							<th th:text="#{ListarCpii.nameClassImpart}"></th>
+						
+							<th th:text="#{ListarCpii.remove}"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="clasePuede : ${clasesPuedenImpartirInstructor}">
+							<td th:text="${clasePuede.instructor.nombre}"></td>
+							<td th:text="${clasePuede.claseImpartir.nombre}"></td>
+							
+
+							
+							<td><a th:href="@{/EliminarClasePuedenImpartirInstructor/{id}(id=${clasePuede.id})}"
+								class="btn btn-primary"
+								onclick="return confirm('¿Está seguro de eliminar el registro?')"><i
+									class="icon ion-md-close"></i></a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p class="my-5">
+				<a href="/IrAgregarClasePuedenImpartirInstructor" class="btn btn-primary"><i
+					class="icon ion-md-add"></i></a>
+			</p>
+
+
+		</div>
+	</div>
+
+
+
+
+
+</body>
+</html>

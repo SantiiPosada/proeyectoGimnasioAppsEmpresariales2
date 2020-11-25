@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title th:text="#{ListarAparato.titles}"></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+<link
+	href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css"
+	rel="stylesheet">
+<link th:href="@{/css/StyleListar.css}" rel="stylesheet" />
+<link th:href="@{/css/shards.min.css}" rel="stylesheet" />
+
+
+</head>
+<body>
+
+
+	<div th:insert=Plantilla/MenuAdministrador :: Menu></div>
+	<div class="row1">
+		<div class="listado1">
+			
+			<div th:insert=Plantilla/Mensaje :: Mensajes></div>
+			<div th:switch="${Aparatos}" class="container my-5">
+
+				<h2 th:case="null" class="mb-5">Ningun resultado Agrege un
+					aparato o busque otro!</h2>
+
+
+				<div th:case="*">
+					<h2 class="my-5" th:text="#{ListarAparato.titles}"></h2>
+
+					<p class="my-5">
+						<a href="/IrAgregarAparato" class="btn btn-primary"><i
+							class="icon ion-md-person"></i></a>
+					</p>
+
+					<form action="aparatoFiltradoSala" method="post">
+						<div class="row">
+							<div class="form-group col-md-6">
+								<label class="col-form-label"
+									th:text="#{ListarAparato.filterNameRoom}"></label> <input
+									type="text" class="form-control" id="salaFiltrar"
+									name="salaFiltrar"
+									th:placeholder="#{ListarAparato.filterNameRoomHolder}">
+							</div>
+
+							<div class="form-group col-md-6">
+								<div class="col-md-6 mt-5">
+									<input type="submit" class="btn btn-primary"
+										th:value="#{ListarAparato.buttonFilter}">
+								</div>
+
+							</div>
+						</div>
+
+					</form>
+
+
+					<div class="rowlistar" th:each="aparato : ${Aparatos}">
+						<h2 class="mb-5" th:text="${aparato.sala.tiposala.nombre}"></h2>
+						<h2 class="mb-5"></h2>
+
+
+						<div class="form-group col-md-6">
+							<label for="sala" class="col-form-label"
+								th:text="#{ListarAparato.room}"></label> <input type="text"
+								class="form-control" id="sala" placeholder="sala"
+								th:value="${aparato.sala.tiposala.nombre}" readonly>
+						</div>
+
+
+
+
+						<div class="form-group col-md-6">
+
+							<label for="descripcion" class="col-form-label"
+								th:text="#{ListarAparato.description}"></label>
+							<textarea class="form-control" id="descripcion" rows="3"
+								placeholder="descripcion" th:text="${aparato.descripcion}"
+								readonly></textarea>
+
+
+						</div>
+
+
+
+						<div class="form-group col-md-6">
+							<a th:href="@{/IrEditarAparato/{id}(id=${aparato.id})}"
+								class="btn btn-primary"><i class="icon ion-md-cog"></i></a> <a
+								th:href="@{/EliminarAparato/{id}(id=${aparato.id})}"
+								class="btn btn-primary"
+								onclick="return confirm('¿Está seguro de eliminar el registro?')"><i
+								class="icon ion-md-close"></i></a>
+
+						</div>
+						<div class="form-group col-md-5">
+							<label for="urlFoto" class="col-form-label"
+								th:text="#{ListarAparato.picture}"></label> <img
+								th:src="${aparato.urlFoto}" th:alt="${aparato.urlFoto}"
+								class="img-fluid rounded mt-2">
+
+						</div>
+
+
+
+
+
+
+
+
+					</div>
+
+
+
+
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<script src="js/subirImagen.js" th:src="@{js/subirImagen.js}"></script>
+
+	<script src="js/subirImagen.js" th:src="@{js/subirImagen.js}"></script>
+	<script type="text/javascript">
+		$(document).ready(
+				function() {
+					$("#locales").change(
+							function() {
+								var selectedOption = $('#locales').val();
+								if (selectedOption != '') {
+									window.location
+											.replace('ListarAparato?lang='
+													+ selectedOption);
+								}
+							});
+				});
+	</script>
+</body>
+</html>

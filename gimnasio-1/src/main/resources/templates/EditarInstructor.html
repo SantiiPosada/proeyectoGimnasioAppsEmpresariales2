@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title th:text="#{EditarInstructor.titles}"></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+
+<link
+	href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css"
+	rel="stylesheet">
+<link th:href="@{/css/StyleListar.css}" rel="stylesheet" />
+<link th:href="@{/css/shards.min.css}" rel="stylesheet" />
+</head>
+<body>
+	<div th:insert=Plantilla/MenuAdministrador :: Menu></div>
+	<div class="row1">
+		<h2 class="mb-5" th:text="#{EditarInstructor.titles}"></h2>
+		<div class="listado1">
+			<div th:insert=Plantilla/Mensaje :: Mensajes></div>
+
+			<form action="#"
+				th:action="@{/EditarInstructor/{id}(id=${instructor.id})}"
+				th:object="${instructor}" method="post"
+				enctype="multipart/form-data">
+				<input type="hidden" class="form-control" th:field="*{id}"
+					th:value="${instructor.id}"> <input type="hidden"
+					id="agregarUrl" th:field="*{urlFoto}"
+					th:value="${instructor.urlFoto}"> <input type="hidden"
+					id="cambioUrl" name="cambioUrl" value="false">
+				<div class="row">
+					<div class="form-group col-md-6">
+
+						<label for="Cedula" class="col-form-label"
+							th:text="#{EditarInstructor.cedula}"></label> <input readonly
+							type="number" th:field="*{Cedula}" class="form-control"
+							id="Cedula" th:placeholder="#{EditarInstructor.cedulaHolder}">
+						<span th:if="${#fields.hasErrors('Cedula')}" th:errors="*{Cedula}"
+							class="text-danger"></span>
+					</div>
+
+					<div class="form-group col-md-6">
+						<label for="nombre" class="col-form-label"
+							th:text="#{EditarInstructor.name}"></label> <input type="text"
+							th:field="*{nombre}" class="form-control" id="nombre"
+							th:placeholder="#{EditarInstructor.nameHolder}" required>
+						<span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"
+							class="text-danger"></span>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="correoelectronico" class="col-form-label"
+							th:text="#{EditarInstructor.email}"></label> <input readonly
+							type="email" th:field="*{correoelectronico}" class="form-control"
+							id="correoelectronico"
+							th:placeholder="#{EditarInstructor.emailHolder}"> <span
+							th:if="${#fields.hasErrors('correoelectronico')}"
+							th:errors="*{correoelectronico}" class="text-danger"></span>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="celular" class="col-form-label"
+							th:text="#{EditarInstructor.phone}"></label> <input type="number"
+							th:field="*{celular}" class="form-control" id="celular"
+							th:placeholder="#{EditarInstructor.phoneHolder}"> <span
+							th:if="${#fields.hasErrors('celular')}" th:errors="*{celular}"
+							class="text-danger"></span>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="experienciaprofesional" class="col-form-label"
+							th:text="#{EditarInstructor.Experience}"></label> <input
+							type="text" th:field="*{experienciaprofesional}"
+							class="form-control" id="experienciaprofesional"
+							th:placeholder="#{EditarInstructor.ExperienceHolder}"> <span
+							th:if="${#fields.hasErrors('experienciaprofesional')}"
+							th:errors="*{experienciaprofesional}" class="text-danger"></span>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="titulacion" class="col-form-label"
+							th:text="#{EditarInstructor.title}"></label> <input type="text"
+							th:field="*{titulacion}" class="form-control" id="titulacion"
+							th:placeholder="#{EditarInstructor.titleHolder}"> <span
+							th:if="${#fields.hasErrors('titulacion')}"
+							th:errors="*{titulacion}" class="text-danger"></span>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="contrasena" class="col-form-label"
+							th:text="#{EditarInstructor.password}"></label> <input
+							type="password" th:field="*{contrasena}" class="form-control"
+							id="contrasena"
+							th:placeholder="#{EditarInstructor.passwordHolder}"> <span
+							th:if="${#fields.hasErrors('contrasena')}"
+							th:errors="*{contrasena}" class="text-danger"></span>
+					</div>
+
+					<div class="form-group col-md-6">
+						<label for="repContrasena" class="col-form-label"
+							th:text="#{EditarInstructor.confirmPassword}"></label> <input
+							type="password" th:field="*{repContrasena}" class="form-control"
+							id="repContrasena"
+							th:placeholder="#{EditarInstructor.confirmPasswordHolder}">
+						<span th:if="${#fields.hasErrors('repContrasena')}"
+							th:errors="*{repContrasena}" class="text-danger"></span>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="file-upload" class="subir btn btn-primary"
+							th:text="#{EditarInstructor.buttonUploadImage}"> <i
+							class="fas fa-cloud-upload-alt"></i>
+						</label> <input type="file" id="file-upload" accept="image/*"
+							class="form-control-file" style='display: none;' name="file">
+						<span th:if="${#fields.hasErrors('urlFoto')}"
+							th:errors="*{urlFoto}" class="text-danger"></span>
+						<div id="zona">
+							<img id="imcargar" th:src="${instructor.urlFoto}"
+								alt="${instructor.urlFoto}" class="img-fluid rounded mt-2"
+								style='width: 12rem; heigth: auto;'>
+						</div>
+					</div>
+
+				</div>
+				<div class="row">
+					<div class="col-md-6 mt-5">
+						<input type="submit" class="btn btn-primary"
+							th:value="#{EditarInstructor.buttonEdiPartner}">
+					</div>
+				</div>
+			</form>
+			<form method="get" action="/ListarInstructores">
+				<div class="row">
+					<div class="col-md-6 mt-5">
+						<input type="submit" class="btn btn-primary"
+							th:value="#{EditarInstructor.buttonReturn}">
+					</div>
+
+				</div>
+			</form>
+
+		</div>
+	</div>
+	<script src="js/subirImagen.js" th:src="@{/js/subirImagen.js}"></script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title th:text="#{AgregarInstructor.titles}"></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+
+<link
+	href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css"
+	rel="stylesheet">
+<link th:href="@{/css/StyleListar.css}" rel="stylesheet" />
+<link th:href="@{/css/shards.min.css}" rel="stylesheet" />
+</head>
+<body>
+	<div th:insert=Plantilla/MenuAdministrador :: Menu></div>
+
+	<div class="row1">
+		<h2 class="mb-5" th:text="#{AgregarInstructor.titles}"></h2>
+		
+		<div class="listado1">
+			<div th:insert=Plantilla/Mensaje :: Mensajes></div>
+			<form action="#" th:action="@{/AgregarInstructor}"
+				th:object="${instructor}" method="post"
+				enctype="multipart/form-data">
+
+				<input type="hidden" id="agregarUrl" th:field="*{urlFoto}">
+				<input type="hidden" id="cambioUrl" name="cambioUrl" value="false">
+
+				<div class="row">
+					<div class="form-group col-md-6">
+						<label for="Cedula" class="col-form-label"
+							th:text="#{AgregarInstructor.cedula}"></label> <input
+							type="number" th:field="*{cedula}" class="form-control"
+							id="cedula" th:placeholder="#{AgregarInstructor.cedulaHolder}">
+						<span th:if="${#fields.hasErrors('Cedula')}" th:errors="*{Cedula}"
+							class="text-danger"></span>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="nombre" class="col-form-label"
+							th:text="#{AgregarInstructor.name}"></label> <input type="text"
+							th:field="*{nombre}" class="form-control" id="nombre"
+							th:placeholder="#{AgregarInstructor.nameHolder}"> <span
+							th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"
+							class="text-danger"></span>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="correoelectronico" class="col-form-label"
+							th:text="#{AgregarInstructor.email}"></label> <input type="email"
+							th:field="*{correoelectronico}" class="form-control"
+							id="correoelectronico"
+							th:placeholder="#{AgregarInstructor.emailHolder}"> <span
+							th:if="${#fields.hasErrors('correoelectronico')}"
+							th:errors="*{correoelectronico}" class="text-danger"></span>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="celular" class="col-form-label"
+							th:text="#{AgregarInstructor.phone}"></label> <input
+							type="number" th:field="*{celular}" class="form-control"
+							id="celular" th:placeholder="#{AgregarInstructor.phoneHolder}">
+						<span th:if="${#fields.hasErrors('celular')}"
+							th:errors="*{celular}" class="text-danger"></span>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="experienciaprofesional" class="col-form-label"
+							th:text="#{AgregarInstructor.Experience}"></label> <input
+							type="text" th:field="*{experienciaprofesional}"
+							class="form-control" id="experienciaprofesional"
+							th:placeholder="#{AgregarInstructor.ExperienceHolder}"> <span
+							th:if="${#fields.hasErrors('experienciaprofesional')}"
+							th:errors="*{experienciaprofesional}" class="text-danger"></span>
+					</div>
+
+					<div class="form-group col-md-6">
+						<label for="titulacion" class="col-form-label"
+							th:text="#{AgregarInstructor.title}"></label> <input type="text"
+							th:field="*{titulacion}" class="form-control" id="titulacion"
+							th:placeholder="#{AgregarInstructor.titleHolder}"> <span
+							th:if="${#fields.hasErrors('titulacion')}"
+							th:errors="*{titulacion}" class="text-danger"></span>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="contrasena" class="col-form-label"
+							th:text="#{AgregarInstructor.password}"></label> <input
+							type="password" th:field="*{contrasena}" class="form-control"
+							id="contrasena"
+							th:placeholder="#{AgregarInstructor.passwordHolder}"> <span
+							th:if="${#fields.hasErrors('contrasena')}"
+							th:errors="*{contrasena}" class="text-danger"></span>
+					</div>
+
+					<div class="form-group col-md-6">
+						<label for="repContrasena" class="col-form-label"
+							th:text="#{AgregarInstructor.confirmPassword}"></label> <input
+							type="password" th:field="*{repContrasena}" class="form-control"
+							id="repContrasena"
+							th:placeholder="#{AgregarInstructor.confirmPasswordHolder}">
+						<span th:if="${#fields.hasErrors('repContrasena')}"
+							th:errors="*{repContrasena}" class="text-danger"></span>
+					</div>
+
+					<div class="form-group col-md-6">
+						<label for="file-upload" class="subir btn btn-primary"
+							th:text="#{AgregarInstructor.buttonUploadImage}"> <i
+							class="fas fa-cloud-upload-alt"></i>
+						</label> <input type="file" id="file-upload" accept="image/*"
+							class="form-control-file" style='display: none;' name="file">
+						<span th:if="${#fields.hasErrors('urlFoto')}"
+							th:errors="*{urlFoto}" class="text-danger"></span>
+						<div>
+							<img id="imcargar" src="/image/sinfoto.jpg"
+								class="img-fluid rounded mt-2"
+								style='width: 14rem; heigth: auto;'>
+						</div>
+
+					</div>
+
+
+
+				</div>
+				<div class="row">
+					<div class="col-md-6 mt-5">
+						<input type="submit" class="btn btn-primary"
+							th:value="#{AgregarInstructor.buttonAddPartner}">
+					</div>
+				</div>
+			</form>
+
+			<form method="get" action="/ListarInstructores">
+				<div class="row">
+					<div class="col-md-6 mt-5">
+						<input type="submit" class="btn btn-primary"
+							th:value="#{AgregarInstructor.buttonReturn}">
+					</div>
+
+				</div>
+			</form>
+		</div>
+	</div>
+	<script src="js/subirImagen.js" th:src="@{/js/subirImagen.js}"></script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title th:text="#{EditarAparato.titles}"></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+
+<link
+	href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css"
+	rel="stylesheet">
+<link th:href="@{/css/StyleListar.css}" rel="stylesheet" />
+<link th:href="@{/css/shards.min.css}" rel="stylesheet" />
+</head>
+<body>
+
+	<div th:insert=Plantilla/MenuAdministrador :: Menu></div>
+
+	<div class="row1">
+
+		<h2 class="mb-5" th:text="#{EditarAparato.titles}"></h2>
+		<div class="listado1">
+			<div th:insert=Plantilla/Mensaje :: Mensajes></div>
+			<form action="#" th:action="@{/EditarAparato/{id}(id=${aparato.id})}"
+				th:object="${aparato}" method="post" enctype="multipart/form-data">
+				<input type="hidden" class="form-control" th:field="*{id}"
+					th:value="${aparato.id}"> <input type="hidden"
+					id="agregarUrl" th:field="*{urlFoto}" th:value="${aparato.urlFoto}">
+				<input type="hidden" id="cambioUrl" name="cambioUrl" value="false">
+				<div class="row">
+
+
+					<div class="form-group col-md-6">
+						<label for="descripcion" class="col-form-label"
+							th:text="#{EditarAparato.description}"></label>
+						<textarea th:field="*{descripcion}" class="form-control"
+							id="descripcion" rows="3"
+							th:placeholder="#{EditarAparato.descriptionHolder}"> </textarea>
+						<span th:if="${#fields.hasErrors('descripcion')}"
+							th:errors="*{descripcion}" class="text-danger"></span>
+					</div>
+
+
+					<div class="form-group col-md-6">
+						<label for="modelo" class="col-form-label"
+							th:text="#{EditarAparato.room}"></label> <select
+							th:field="*{sala.id}" id="idSala" required="required"
+							class="form-control">
+
+
+							<option th:fragment="salasOrdenadas"
+								th:each="salasO:${salasOrdenadas} " th:value="${salasO.id}"
+								th:text="${salasO.tiposala.nombre}" />
+
+						</select>
+					</div>
+
+
+					<div class="form-group col-md-6">
+						<label for="file-upload" class="subir btn btn-primary"
+							th:text="#{EditarAparato.buttonUploadImage}"> <i
+							class="fas fa-cloud-upload-alt"></i>
+						</label> <input type="file" id="file-upload" accept="image/*"
+							class="form-control-file" style='display: none;' name="file">
+						<span th:if="${#fields.hasErrors('urlFoto')}"
+							th:errors="*{urlFoto}" class="text-danger"></span>
+						<div id="zona">
+							<img id="imcargar" th:src="${aparato.urlFoto}"
+								alt="${aparato.urlFoto}" class="img-fluid rounded mt-2"
+								style='width: 12rem; heigth: auto;'>
+						</div>
+					</div>
+
+				</div>
+				<div class="row">
+					<div class="col-md-6 mt-5">
+						<input type="submit" class="btn btn-primary"
+							th:value="#{EditarAparato.buttonEdiPartner}">
+					</div>
+
+				</div>
+			</form>
+			<form method="get" action="/ListarAparato">
+				<div class="row">
+					<div class="col-md-6 mt-5">
+						<input type="submit" class="btn btn-primary"
+							th:value="#{EditarAparato.buttonReturn}">
+					</div>
+
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<script src="js/subirImagen.js" th:src="@{/js/subirImagen.js}"></script>
+
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title th:text="#{EditarRutina.title}"></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+
+<link
+	href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css"
+	rel="stylesheet">
+<link th:href="@{/css/StyleListar.css}" rel="stylesheet" />
+<link th:href="@{/css/shards.min.css}" rel="stylesheet" />
+
+
+</head>
+<body>
+
+
+	<div th:insert=Plantilla/MenuInstructor :: Menu></div>
+
+	<div class="row1">
+
+		<h2 class="mb-5" th:text="#{EditarRutina.title}"></h2>
+		<div class="listado1">
+
+			<form action="#" th:action="@{/EditarRutina/{id}(id=${rutina.id})}"
+				th:object="${rutina}" method="post" enctype="multipart/form-data">
+				<input type="hidden" class="form-control" th:field="*{id}"
+					th:value="${rutina.id}"> 
+					<input type="hidden"
+					id="agregarUrl" th:field="*{urlFoto}" th:value="${rutina.urlFoto}">
+				<input type="hidden" id="cambioUrl" name="cambioUrl" value="false">
+				<div class="row">
+
+					<div class="form-group col-md-6">
+						<label for="instrcutor" class="col-form-label" th:text="#{EditarRutina.instructor}"></label> 
+						<input
+							type="hidden" th:field="*{instructor.id}" class="form-control" id="nombre"
+							placeholder="nombre" required> 
+							<input
+							type="text" th:value="*{instructor.nombre}" class="form-control" id="nombre"
+							placeholder="nombre" readonly >
+					</div>
+					
+
+					<div class="form-group col-md-6">
+						<label for="socio" class="col-form-label" th:text="#{EditarRutina.partner}"></label> 
+						<input
+							type="hidden" th:field="*{socio.id}" class="form-control" id="nombre"
+							placeholder="nombre" required> 
+							<input
+							type="text" th:value="*{socio.nombre}" class="form-control" id="nombre"
+							placeholder="nombre" readonly >
+					</div>
+
+
+					<div class="form-group col-md-6">
+						<label for="descripcion" class="col-form-label" th:text="#{EditarRutina.description}"></label>
+						<textarea th:field="*{descripcion}" class="form-control"
+							id="descripcion" rows="3" th:placeholder="#{EditarRutina.descriptionHolder}"> </textarea>
+						<span th:if="${#fields.hasErrors('descripcion')}"
+							th:errors="*{descripcion}" class="text-danger"></span>
+					</div>
+
+
+					<div class="form-group col-md-6">
+						<label for="file-upload" class="subir btn btn-primary" th:text="#{EditarRutina.buttonUploadImage}">
+							 <i class="fas fa-cloud-upload-alt"></i>
+						</label> <input type="file" id="file-upload" accept="image/*"
+							class="form-control-file" style='display: none;' name="file">
+						<span th:if="${#fields.hasErrors('urlFoto')}"
+							th:errors="*{urlFoto}" class="text-danger"></span>
+						<div id="zona">
+							<img id="imcargar" th:src="${rutina.urlFoto}"
+								alt="${rutina.urlFoto}" class="img-fluid rounded mt-2"
+								style='width: 12rem; heigth: auto;'>
+						</div>
+					</div>
+
+
+
+
+
+
+				</div>
+				<div class="row">
+					<div class="col-md-6 mt-5">
+						<input type="submit" class="btn btn-primary"
+							th:value="#{EditarRutina.buttonEditRoutine}">
+					</div>
+
+				</div>
+			</form>
+			<form method="get" action="/ListarRutina">
+				<div class="row">
+					<div class="col-md-6 mt-5">
+						<input type="submit" class="btn btn-primary" th:value="#{EditarRutina.buttonReturn}">
+					</div>
+
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<script src="js/subirImagen.js" th:src="@{/js/subirImagen.js}"></script>
+</body>
+</html>

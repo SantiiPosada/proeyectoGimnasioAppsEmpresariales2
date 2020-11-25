@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title th:text="#{ListarRutina.title}"></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+<link
+	href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css"
+	rel="stylesheet">
+<link th:href="@{/css/StyleListar.css}" rel="stylesheet" />
+<link th:href="@{/css/shards.min.css}" rel="stylesheet" />
+
+
+</head>
+<body>
+
+
+	<div th:insert=Plantilla/MenuInstructor :: Menu></div>
+	<div class="row1">
+		<div class="listado1">
+		
+		
+			<div th:insert=Plantilla/Mensaje :: Mensajes></div>
+			<div th:switch="${Rutinas}" class="container my-5">
+
+
+				<div th:case="*">
+					<h2 class="my-5" th:text="#{ListarRutina.title}"></h2>
+
+					<p class="my-5">
+						<a href="/IrAgregarRutina" class="btn btn-primary"><i
+							class="icon ion-md-add"></i></a>
+					</p>
+				
+					<form action="rutinaFiltradoCorreo" method="post">
+						<div class="row">
+							<div class="form-group col-md-6">
+								<label class="col-form-label" th:text="#{ListarRutina.filterNameEmail}"></label> <input
+									type="text" class="form-control" id="correoFiltrar"
+									name="correoFiltrar"
+									th:placeholder="#{ListarRutina.filterNameEmailHolder}">
+							</div>
+
+							<div class="form-group col-md-6">
+								<div class="col-md-6 mt-5">
+									<input type="submit" class="btn btn-primary" th:value="#{ListarRutina.buttonFilter}">
+								</div>
+
+							</div>
+						</div>
+
+					</form>
+
+					<div class="rowlistar" th:each="rutina : ${Rutinas}">
+						<h2 class="mb-5" th:text="#{ListarRutina.subTitle}+' ' +${rutina.id}"></h2>
+					
+
+						<div class="form-group col-md-6">
+						<label for="descripcion" class="col-form-label" th:text="#{ListarRutina.description}"></label>
+						<textarea   th:text="${rutina.descripcion}"
+							class="form-control" id="descripcion" rows="3"
+							placeholder="Ingrese la descripcion" readonly> </textarea>
+					</div>
+						<div class="form-group col-md-6">
+							<label for="Nombre" class="col-form-label" th:text="#{ListarRutina.instructor}"></label> <input
+								type="text" class="form-control" id="instructor"
+								placeholder="Instructor" th:value="${rutina.instructor.nombre}"
+								readonly>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="socio" class="col-form-label" th:text="#{ListarRutina.partner}"></label> <input
+								type=text class="form-control" id="socio" placeholder="socio"
+								th:value="${rutina.socio.nombre}" readonly>
+						</div>
+
+
+						<div class="form-group col-md-2">
+							<label for="urlFoto" class="col-form-label" th:text="#{ListarRutina.Photography}"></label> <img
+								th:src="${rutina.urlFoto}" th:alt="${rutina.urlFoto}"
+								class="img-fluid rounded mt-2">
+
+						</div>
+
+
+						<div class="form-group col-md-6">
+							<a th:href="@{/IrEditarRutina/{id}(id=${rutina.id})}"
+								class="btn btn-primary"><i class="icon ion-md-cog"></i></a> <a
+								th:href="@{/EliminarRutina/{id}(id=${rutina.id})}"
+								class="btn btn-primary"
+								onclick="return confirm('¿Está seguro de eliminar el registro?')"><i
+								class="icon ion-md-close"></i></a>
+
+						</div>
+
+
+
+					</div>
+
+
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<script src="js/subirImagen.js" th:src="@{js/subirImagen.js}"></script>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Registro Administrador</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+	integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="../css/shards.min.css">
+</head>
+<body>
+	
+	<div class="container my-5">
+		<h2 class="mb-5">Nuevo Administrador</h2>
+		<div class="row">
+			<div class="col-md-6">
+				<form action="#" th:action="@{/AgregarAdministrador}" th:object="${administrador}"
+					method="post">
+					<div class="row">
+						<div class="form-group col-md-6">
+							<label for="Cedula" class="col-form-label">Cedula</label> <input
+								type="number" th:field="*{Cedula}" class="form-control"
+								id="Cedula" placeholder="Ingrese la cedula" required="required"> <span
+								th:if="${#fields.hasErrors('Cedula')}" th:errors="*{Cedula}"
+								class="text-danger"></span>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="Nombre" class="col-form-label">Nombre</label> <input
+								type="text" th:field="*{Nombre}" class="form-control"
+								id="Nombre" placeholder="Ingrese el nombre" required="required" > <span
+								th:if="${#fields.hasErrors('Nombre')}" th:errors="*{Nombre}"
+								class="text-danger"></span>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="Celular" class="col-form-label">Celular</label> <input
+								type="number" th:field="*{Celular}" class="form-control"
+								id="Celular" placeholder="Ingrese el celular" required="required"> <span
+								th:if="${#fields.hasErrors('Celular')}" th:errors="*{Celular}"
+								class="text-danger"></span>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="CorreoElectronico" class="col-form-label">Correo Electronico</label>
+							<input type="email" th:field="*{CorreoElectronico}"
+								class="form-control" id="CorreoElectronico"
+								placeholder="Ingrese el Correo Electronico" required="required"> <span
+								th:if="${#fields.hasErrors('CorreoElectronico')}"
+								th:errors="*{CorreoElectronico}" class="text-danger"></span>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="jornada" class="col-form-label">jornada</label> <input
+								type="text" th:field="*{jornada}" class="form-control"
+								id="jornada" placeholder="Ingrese la Jornada" required="required"> <span
+								th:if="${#fields.hasErrors('jornada')}" th:errors="*{jornada}"
+								class="text-danger"></span>
+						</div>
+						
+						<div class="form-group col-md-6">
+							<label for="Contrasena" class="col-form-label">Contraseña</label>
+							<input type="password" th:field="*{Contrasena}"
+								class="form-control" id="Contrasena" placeholder="Ingrese la Contrasena" required="required">
+							<span th:if="${#fields.hasErrors('Contrasena')}"
+								th:errors="*{Contrasena}" class="text-danger"></span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6 mt-5">
+							<input type="submit" class="btn btn-primary"
+								value="Agregar Administrador">
+						</div>
+
+					</div>
+					<div class="row">
+						<p class="my-5">
+							<a href="/ListarAdministrador" class="btn btn-primary"> <i
+								class="btn-primary">Volver</i></a>
+						</p>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title  th:text="#{AgregarRutina.title}"></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+
+<link
+	href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css"
+	rel="stylesheet">
+<link th:href="@{/css/StyleListar.css}" rel="stylesheet" />
+<link th:href="@{/css/shards.min.css}" rel="stylesheet" />
+
+
+</head>
+<body>
+
+
+	<div th:insert=Plantilla/MenuInstructor :: Menu></div>
+
+	<div class="row1">
+		<h2 class="mb-5" th:text="#{AgregarRutina.title}"></h2>
+		<div class="listado1">
+			<div th:insert=Plantilla/Mensaje :: Mensajes></div>
+			<form action="socioFiltradoCorreo" method="post">
+				<div class="row">
+					<div class="form-group col-md-6">
+						<label class="col-form-label" th:text="#{AgregarRutina.filterNameEmail}"></label> <input
+							type="text" class="form-control" id="correoFiltrar"
+							name="correoFiltrar"
+							th:placeholder="#{AgregarRutina.filterNameEmailHolder}">
+					</div>
+
+					<div class="form-group col-md-6">
+						<div class="col-md-6 mt-5">
+							<input type="submit" class="btn btn-primary" th:value="#{AgregarRutina.buttonFilter}">
+						</div>
+
+					</div>
+				</div>
+
+			</form>
+			<form action="#" th:action="@{/AgregarRutina}" th:object="${rutina}"
+				method="post" enctype="multipart/form-data">
+
+				<input type="hidden" id="agregarUrl" th:field="*{urlFoto}">
+				<input type="hidden" id="cambioUrl" name="cambioUrl" value="false">
+
+
+				<div class="row">
+
+
+
+					<div class="form-group col-md-6">
+						<label for="modelo" th:text="#{AgregarRutina.instructor}"></label> <select
+							th:field="*{instructor.id}" id="idInstrcutor" required="required"
+							class="form-control">
+
+
+							<option th:fragment="istructoresOrdenados"
+								th:each="instructoresOrde:${istructoresOrdenados} "
+								th:value="${instructoresOrde.id}"
+								th:text="${instructoresOrde.nombre}" />
+						</select> <span th:if="${#fields.hasErrors('instructor')}"
+							th:errors="*{instructor}" class="text-danger"></span>
+					</div>
+
+					<div class="form-group col-md-6">
+						<label for="modelo" th:text="#{AgregarRutina.partner}"></label> <select th:field="*{socio.id}"
+							id="idclaseImpartir" required="required" class="form-control">
+
+
+							<option th:fragment="sociosOrdenados"
+								th:each="sociosOrde:${sociosOrdenados} "
+								th:value="${sociosOrde.id}" th:text="${sociosOrde.nombre}" />
+						</select> <span th:if="${#fields.hasErrors('socio')}" th:errors="*{socio}"
+							class="text-danger"></span>
+					</div>
+
+					<div class="form-group col-md-6">
+						<label for="descripcion" class="col-form-label" th:text="#{AgregarRutina.description}"></label>
+						<textarea th:field="*{descripcion}" class="form-control"
+							id="descripcion" rows="3" th:placeholder="#{AgregarRutina.descriptionHolder}"> </textarea>
+						<span th:if="${#fields.hasErrors('descripcion')}"
+							th:errors="*{descripcion}" class="text-danger"></span>
+					</div>
+
+
+					<div class="form-group col-md-6">
+						<label for="file-upload" class="subir btn btn-primary"  th:text="#{AgregarRutina.buttonUploadImage}">
+							 <i class="fas fa-cloud-upload-alt"></i>
+						</label> <input type="file" id="file-upload" accept="image/*"
+							class="form-control-file" style='display: none;' name="file">
+						<span th:if="${#fields.hasErrors('urlFoto')}"
+							th:errors="*{urlFoto}" class="text-danger"></span>
+						<div>
+							<img id="imcargar" src="/image/sinfoto.jpg"
+								class="img-fluid rounded mt-2"
+								style='width: 14rem; heigth: auto;'>
+						</div>
+
+					</div>
+
+
+
+				</div>
+				<div class="row">
+					<div class="col-md-6 mt-5">
+						<input type="submit" class="btn btn-primary"
+							th:value="#{AgregarRutina.buttonAddRoutine}">
+					</div>
+
+				</div>
+			</form>
+
+			<form method="get" action="/ListarRutina">
+				<div class="row">
+					<div class="col-md-6 mt-5">
+						<input type="submit" class="btn btn-primary" th:value="#{AgregarRutina.buttonReturn}">
+					</div>
+
+				</div>
+			</form>
+
+		</div>
+	</div>
+
+
+	<script src="js/subirImagen.js" th:src="@{/js/subirImagen.js}"></script>
+
+</body>
+
+
+</html>

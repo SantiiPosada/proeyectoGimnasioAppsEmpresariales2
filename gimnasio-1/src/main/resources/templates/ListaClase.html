@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title th:text="#{ListarClases.titles}"></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+<link
+	href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css"
+	rel="stylesheet">
+<link th:href="@{/css/StyleListar.css}" rel="stylesheet" />
+<link th:href="@{/css/shards.min.css}" rel="stylesheet" />
+
+
+</head>
+<body>
+
+
+	<div th:insert=Plantilla/MenuAdministrador :: Menu></div>
+	<div class="row1">
+		<div class="listado1">
+			
+			<div th:insert=Plantilla/Mensaje :: Mensajes></div>
+			<div th:switch="${clases}" class="container my-5">
+
+				<h2 th:case="null" class="mb-5">Ningun resultado Agrege una
+					clase o busque otro!</h2>
+
+
+				<div th:case="*">
+					<h2 class="my-5" th:text="#{ListarClases.titles}"></h2>
+
+					<p class="my-5">
+						<a href="/IrAgregarClase" class="btn btn-primary"><i
+							class="icon ion-md-person"></i></a>
+					</p>
+
+					<form action="ClaseFiltradoDia" method="post">
+						<div class="row">
+							<div class="form-group col-md-6">
+								<label class="col-form-label"
+									th:text="#{ListarClases.filterDate}"></label> <input
+									type="datetime-local" class="form-control" id="claseFiltrarDia"
+									name="claseFiltrarDia"
+									th:placeholder="#{ListarClases.filterDateHolder}">
+							</div>
+
+							<div class="form-group col-md-6">
+								<div class="col-md-6 mt-5">
+									<input type="submit" class="btn btn-primary"
+										th:value="#{ListarClases.buttonFilter}">
+								</div>
+
+							</div>
+						</div>
+
+					</form>
+
+					<form action="ClaseFiltradoCorreoInstructor" method="post">
+						<div class="row">
+							<div class="form-group col-md-6">
+								<label class="col-form-label"
+									th:text="#{ListarClases.filterEmail}"></label> <input
+									type="email" class="form-control"
+									id="claseFiltrarCorreoInstructor"
+									name="claseFiltrarCorreoInstructor"
+									th:placeholder="#{ListarClases.filterEmailHolder}">
+							</div>
+
+							<div class="form-group col-md-6">
+								<div class="col-md-6 mt-5">
+									<input type="submit" class="btn btn-primary"
+										th:value="#{ListarClases.buttonFilter}">
+								</div>
+
+							</div>
+						</div>
+
+					</form>
+
+
+					<div class="rowlistar" th:each="clase : ${clases}">
+
+
+
+						<div class="form-group col-md-6">
+							<label for="sala" class="col-form-label"
+								th:text="#{ListarClases.room}"></label> <input type="text"
+								class="form-control" id="sala" placeholder="sala"
+								th:value="${clase.sala.id}" readonly>
+						</div>
+						<div class="form-group col-md-6">
+
+							<label for="descripcion" class="col-form-label"
+								th:text="#{ListarClases.description}"></label>
+							<textarea class="form-control" id="descripcion" rows="3"
+								placeholder="descripcion" th:text="${clase.descripcion}"
+								readonly></textarea>
+
+
+						</div>
+
+						<div class="form-group col-md-6">
+							<label for="clasepuedenimpartirinstructor" class="col-form-label"
+								th:text="#{ListarClases.instructor}"></label> <input
+								type="hidden" class="form-control"
+								id="clasepuedenimpartirinstructor" placeholder="instructor"
+								th:value="${clase.clasepuedenimpartirinstructor.id}" readonly>
+
+							<input type="text" class="form-control"
+								id="clasepuedenimpartirinstructor" placeholder="instructor"
+								th:value="${clase.clasepuedenimpartirinstructor.instructor.nombre}"
+								readonly>
+
+						</div>
+
+						<div class="form-group col-md-6">
+							<label for="diaHora" class="col-form-label"
+								th:text="#{ListarClases.date}"></label> <input type="text"
+								class="form-control" id="diaHora" placeholder="diaHora"
+								th:value="${clase.diaHora}" readonly>
+						</div>
+
+						<div class="form-group col-md-6">
+							<a th:href="@{/IrEditarClase/{id}(id=${clase.id})}"
+								class="btn btn-primary"><i class="icon ion-md-cog"></i></a> <a
+								th:href="@{/EliminarClase/{id}(id=${clase.id})}"
+								class="btn btn-primary"
+								onclick="return confirm('¿Está seguro de eliminar el registro?')"><i
+								class="icon ion-md-close"></i></a>
+
+						</div>
+
+
+
+
+
+
+
+					</div>
+
+
+
+
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<script src="js/subirImagen.js" th:src="@{js/subirImagen.js}"></script>
+<script src="js/subirImagen.js" th:src="@{js/subirImagen.js}"></script>
+	<script type="text/javascript">
+		$(document).ready(
+				function() {
+					$("#locales").change(
+							function() {
+								var selectedOption = $('#locales').val();
+								if (selectedOption != '') {
+									window.location
+											.replace('ListarClase?lang='
+													+ selectedOption);
+								}
+							});
+				});
+	</script>
+</body>
+</html>

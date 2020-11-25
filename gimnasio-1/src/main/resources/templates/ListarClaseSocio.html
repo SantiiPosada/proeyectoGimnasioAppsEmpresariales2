@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Clases Pueden Imparir Instructor</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+<link
+	href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css"
+	rel="stylesheet">
+<link th:href="@{/css/StyleListar.css}" rel="stylesheet" />
+<link th:href="@{/css/shards.min.css}" rel="stylesheet" />
+
+
+</head>
+<body>
+
+	<div th:insert=Plantilla/MenuSocio :: Menu></div>
+
+	<div class="row1">
+		<div class="listado1">
+			<div class="container my-5">
+
+				<div >
+					<h2 class="my-5">Clases Inscrito</h2>
+					<table class="table table-striped table-responsive-md">
+						<thead>
+							<tr>
+								<th>Instructor</th>
+								<th>Descripcion</th>
+								<th>Ubicacion</th>
+								<th>Nombre Sala</th>
+								<th>Fecha</th>
+								
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Ejemplo Instructor</td>
+								<td>Ejemplo Descripcion</td>
+								<td>Ejemplo Ubicacion</td>
+								<td>Ejemplo Sala</td>
+								<td>Ejemplo Fecha</td>
+								
+
+
+								
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				
+				
+				
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+</body>
+</html>

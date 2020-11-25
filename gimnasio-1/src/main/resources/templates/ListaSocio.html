@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta  http-equiv="content-type" content="text/html; utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title th:text="#{ListarSocio.title}"></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+<link
+	href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css"
+	rel="stylesheet">
+<link th:href="@{/css/StyleListar.css}" rel="stylesheet" />
+<link th:href="@{/css/shards.min.css}" rel="stylesheet" />
+
+
+</head>
+<body>
+
+
+	<div th:insert=Plantilla/MenuAdministrador :: Menu></div>
+	<div class="row1">
+		<div class="listado1">
+		
+			<div th:insert=Plantilla/Mensaje :: Mensajes></div>
+			<div th:switch="${Socios}" class="container my-5">
+
+				<h2 th:case="null" class="mb-5">Ningun resultado Agrege un
+					socio o busque otro!</h2>
+
+
+				<div th:case="*">
+					<h2 class="my-5"  th:text="#{ListarSocio.title}"></h2>
+
+					<p class="my-5">
+						<a href="/IrAgregarSocio" class="btn btn-primary"><i
+							class="icon ion-md-person"></i></a>
+					</p>
+
+					<form action="socidoFiltradoCorreo" method="post">
+						<div class="row">
+							<div class="form-group col-md-6">
+								<label class="col-form-label"  th:text="#{ListarSocio.filterNameEmail}"></label> <input
+									type="text" class="form-control" id="correoFiltrar"
+									name="correoFiltrar"
+									th:placeholder="#{ListarSocio.filterNameEmailHolder}">
+							</div>
+
+							<div class="form-group col-md-6">
+								<div class="col-md-6 mt-5">
+									<input type="submit" class="btn btn-primary" th:value="#{ListarSocio.buttonFilter}">
+								</div>
+
+							</div>
+						</div>
+
+					</form>
+
+
+					<div class="rowlistar" th:each="Socio : ${Socios}">
+						<h2 class="mb-5" th:text="${Socio.Nombre}"></h2>
+					
+
+
+						<div class="form-group col-md-6">
+							<label for="Cedula" class="col-form-label" th:text="#{ListarSocio.cedula}"></label> <input
+								type="number" class="form-control" id="Cedula"
+								 th:value="${Socio.Cedula}" readonly>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="Nombre" class="col-form-label" th:text="#{ListarSocio.name}"></label> <input
+								type="text" class="form-control" id="Nombre"
+								 th:value="${Socio.Nombre}" readonly>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="correoElectronico" class="col-form-label" th:text="#{ListarSocio.email}"></label>
+							<input type="email" class="form-control" id="correoElectronico"
+							
+								th:value="${Socio.correoElectronico}" readonly>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="Celular" class="col-form-label" th:text="#{ListarSocio.phone}"></label> <input
+								type="number" class="form-control" id="Celular"
+								placeholder="Celular" th:value="${Socio.Celular}" readonly>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="datosbancarios" class="col-form-label"  th:text="#{ListarSocio.BankAccount}">
+								</label> <input type="text" class="form-control"
+								id="datosbancarios" placeholder="Datos Bancarios"
+								th:value="${Socio.datosbancarios}" readonly>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="direccion" class="col-form-label" th:text="#{ListarSocio.address}"></label> <input
+								type="text" class="form-control" id="direccion"
+								placeholder="Direccion" th:value="${Socio.direccion}" readonly>
+						</div>
+
+						<div class="form-group col-md-6">
+							<label for="profesion" class="col-form-label"  th:text="#{ListarSocio.profession}"></label> <input
+								type="text" class="form-control" id="profesion"
+								placeholder="Profesion" th:value="${Socio.profesion}" readonly>
+						</div>
+
+						<div class="form-group col-md-2">
+							<label for="urlFoto" class="col-form-label" th:text="#{ListarSocio.picture}"></label>
+							<img th:src="${Socio.urlFoto}" th:alt="${Socio.urlFoto}"
+								class="img-fluid rounded mt-2">
+
+						</div>
+
+
+
+
+						<div class="form-group col-md-6">
+							<a th:href="@{/IrEditarSocio/{id}(id=${Socio.id})}"
+								class="btn btn-primary"><i class="icon ion-md-cog"></i></a> <a
+								th:href="@{/EliminarSocio/{id}(id=${Socio.id})}"
+								class="btn btn-primary"
+								onclick="return confirm('¿Está seguro de eliminar el registro?')"><i
+								class="icon ion-md-close"></i></a>
+
+						</div>
+
+
+
+
+
+
+
+					</div>
+
+
+
+
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<script src="js/subirImagen.js" th:src="@{js/subirImagen.js}"></script>
+
+</body>
+</html>

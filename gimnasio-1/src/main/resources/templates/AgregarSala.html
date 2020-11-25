@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title th:text="#{AgregarSala.title}"></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+
+<link
+	href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css"
+	rel="stylesheet">
+<link th:href="@{/css/StyleListar.css}" rel="stylesheet" />
+<link th:href="@{/css/shards.min.css}" rel="stylesheet" />
+
+
+
+
+</head>
+<body>
+
+	<div th:insert=Plantilla/MenuAdministrador :: Menu></div>
+
+	<div class="row1">
+		<h2 class="mb-5"  th:text="#{AgregarSala.title}"></h2>
+		<div class="listado1">
+			<div th:insert=Plantilla/Mensaje :: Mensajes></div>
+
+			<form action="#" th:action="@{/AgregarSala}" th:object="${sala}"
+				method="post" enctype="multipart/form-data">
+				<input type="hidden" id="agregarUrl" th:field="*{urlFoto}">
+				<input type="hidden" id="cambioUrl" name="cambioUrl" value="false">
+				<div class="row">
+				
+					<div class="form-group col-md-6">
+						<label for="metrosCuadrados" class="col-form-label"  th:text="#{AgregarSala.squareMeter}"></label>
+						<input type="text" th:field="*{metrosCuadrados}"
+							class="form-control" id="metrosCuadrados"
+							th:placeholder="#{AgregarSala.squareMeterHolder}" required> <span
+							th:if="${#fields.hasErrors('metrosCuadrados')}"
+							th:errors="*{metrosCuadrados}" class="text-danger"></span>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="CorreoElectronico" class="col-form-label" th:text="#{AgregarSala.location}">ubicacion</label>
+						<input type="text" th:field="*{ubicacion}" class="form-control"
+							id="ubicacion" th:placeholder="#{AgregarSala.locationHolder}" required> <span
+							th:if="${#fields.hasErrors('ubicacion')}"
+							th:errors="*{ubicacion}" class="text-danger"></span>
+					</div>
+
+
+					<div class="form-group col-md-6">
+						<label for="modelo"  th:text="#{AgregarSala.type_Room}"></label> <select
+							th:field="*{tiposala.id}" id="idTipoSala" required="required"
+							class="form-control">
+
+
+							<option th:fragment="tipoSalasOrdenadas"
+								th:each="tiposalasO:${tipoSalasOrdenadas} "
+								th:value="${tiposalasO.id}" th:text="${tiposalasO.nombre}" />
+						</select> <span th:if="${#fields.hasErrors('tiposala')}"
+							th:errors="*{tiposala}" class="text-danger"></span>
+					</div>
+
+					<div class="form-group col-md-6">
+						<label for="file-upload" class="subir btn btn-primary" th:text="#{AgregarSala.buttonUploadImage}" >
+							 <i class="fas fa-cloud-upload-alt" ></i>
+						</label> <input type="file" id="file-upload" accept="image/*"
+							class="form-control-file" style='display: none;' name="file">
+						<span th:if="${#fields.hasErrors('urlFoto')}"
+							th:errors="*{urlFoto}" class="text-danger"></span>
+						<div>
+							<img id="imcargar" src="/image/sinfoto.jpg"
+								class="img-fluid rounded mt-2"
+								style='width: 14rem; heigth: auto;'>
+						</div>
+
+					</div>
+
+				</div>
+				<div class="row">
+					<div class="col-md-6 mt-5">
+						<input type="submit" class="btn btn-primary" th:value="#{AgregarSala.buttonAddRoom}" >
+					</div>
+
+				</div>
+			</form>
+
+			<form method="get" action="/ListarSala">
+				<div class="row">
+					<div class="col-md-6 mt-5">
+						<input type="submit" class="btn btn-primary" th:value="#{AgregarSala.buttonReturn}" >
+					</div>
+
+				</div>
+			</form>
+
+		</div>
+	</div>
+	<script src="js/subirImagen.js" th:src="@{/js/subirImagen.js}"></script>
+	
+
+</body>
+</html>

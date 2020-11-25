@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title th:text="#{ListarInstructor.titles}"></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+<link
+	href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css"
+	rel="stylesheet">
+<link th:href="@{/css/StyleListar.css}" rel="stylesheet" />
+<link th:href="@{/css/shards.min.css}" rel="stylesheet" />
+
+
+</head>
+<body>
+
+
+	<div th:insert=Plantilla/MenuAdministrador :: Menu></div>
+	<div class="row1">
+		<div class="listado1">
+
+
+			<div th:insert=Plantilla/Mensaje :: Mensajes></div>
+			<div th:switch="${Instructores}" class="container my-5">
+
+				<h2 th:case="null" class="mb-5"
+					th:text="#{ListarInstructor.filtermessager}"></h2>
+
+
+				<div th:case="*">
+					<h2 class="my-5" th:text="#{ListarInstructor.titles}"></h2>
+
+					<p class="my-5">
+						<a href="/IrAgregarInstructor" class="btn btn-primary"><i
+							class="icon ion-md-person"></i></a>
+					</p>
+
+					<form action="InstructorFiltradoCorreo" method="post">
+						<div class="row">
+							<div class="form-group col-md-6">
+								<label class="col-form-label"
+									th:text="#{ListarInstructor.filterNameEmail}"></label> <input
+									type="text" class="form-control" id="cedulaInstructor"
+									name="correoFiltrar"
+									th:placeholder="#{ListarInstructor.filterNameEmailHolder}">
+							</div>
+
+							<div class="form-group col-md-6">
+								<div class="col-md-6 mt-5">
+									<input type="submit" class="btn btn-primary"
+										th:value="#{ListarInstructor.buttonFilter}">
+								</div>
+
+							</div>
+						</div>
+
+					</form>
+
+
+					<div class="rowlistar" th:each="instructor : ${Instructores}">
+						<h2 class="mb-5" th:text="${instructor.nombre}"></h2>
+						<h2 class="mb-5"></h2>
+
+
+						<div class="form-group col-md-6">
+							<label for="Cedula" class="col-form-label"
+								th:text="#{ListarInstructor.cedula}"></label> <input
+								type="number" class="form-control" id="Cedula"
+								placeholder="Cedula" th:value="${instructor.Cedula}" readonly>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="nombre" class="col-form-label"
+								th:text="#{ListarInstructor.name}"></label> <input type="text"
+								class="form-control" id="nombre" placeholder="nombre"
+								th:value="${instructor.nombre}" readonly>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="correoelectronico" class="col-form-label"
+								th:text="#{ListarInstructor.email}"></label> <input type="email"
+								class="form-control" id="correoelectronico"
+								placeholder="correoelectronico"
+								th:value="${instructor.correoelectronico}" readonly>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="celular" class="col-form-label"
+								th:text="#{ListarInstructor.phone}"></label> <input
+								type="number" class="form-control" id="celular"
+								placeholder="celular" th:value="${instructor.celular}" readonly>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="experienciaprofesional" class="col-form-label"
+								th:text="#{ListarInstructor.experience}"></label> <input
+								type="text" class="form-control" id="experienciaprofesional"
+								placeholder="experienciaprofesional"
+								th:value="${instructor.experienciaprofesional}" readonly>
+						</div>
+
+
+						<div class="form-group col-md-6">
+							<label for="titulacion" class="col-form-label"
+								th:text="#{ListarInstructor.title}"></label> <input type="text"
+								class="form-control" id="titulacion" placeholder="titulacion"
+								th:value="${instructor.titulacion}" readonly>
+						</div>
+
+
+
+
+						<div class="form-group col-md-6">
+							<a th:href="@{/IrEditarInstructor/{id}(id=${instructor.id})}"
+								class="btn btn-primary"><i class="icon ion-md-cog"></i></a> <a
+								th:href="@{/EliminarInstructor/{id}(id=${instructor.id})}"
+								class="btn btn-primary"
+								onclick="return confirm('¿Está seguro de eliminar el registro?')"><i
+								class="icon ion-md-close"></i></a>
+
+						</div>
+
+						<div class="form-group col-md-2">
+							<label for="urlFoto" class="col-form-label"
+								th:text="#{ListarInstructor.picture}"></label> <img
+								th:src="${instructor.urlFoto}" th:alt="${instructor.urlFoto}"
+								class="img-fluid rounded mt-2">
+
+						</div>
+
+
+
+
+
+
+
+
+
+
+
+					</div>
+
+
+
+
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<script src="js/subirImagen.js" th:src="@{js/subirImagen.js}"></script>
+	<script type="text/javascript">
+		$(document).ready(
+				function() {
+					$("#locales").change(
+							function() {
+								var selectedOption = $('#locales').val();
+								if (selectedOption != '') {
+									window.location
+											.replace('ListarInstructores?lang='
+													+ selectedOption);
+								}
+							});
+				});
+	</script>
+
+
+
+
+
+</body>
+</html>

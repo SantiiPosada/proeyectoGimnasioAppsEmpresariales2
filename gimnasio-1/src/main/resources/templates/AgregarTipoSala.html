@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title  th:text="#{AgregarTipoSala.title}"></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+
+<link
+	href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css"
+	rel="stylesheet">
+<link th:href="@{/css/StyleListar.css}" rel="stylesheet" />
+<link th:href="@{/css/shards.min.css}" rel="stylesheet" />
+
+
+</head>
+<body>
+	<div th:insert=Plantilla/MenuAdministrador :: Menu></div>
+	<div class="row1">
+		<h2 class="mb-5" th:text="#{AgregarTipoSala.title}"></h2>
+		<div class="listado1">
+		<div th:insert=Plantilla/Mensaje :: Mensajes></div>
+			<form action="#" th:action="@{/AgregarTipoSala}"
+				th:object="${tipoSala}" method="post">
+				<div class="row">
+					<div class="form-group col-md-6">
+						<label for="nombre" class="col-form-label" th:text="#{AgregarTipoSala.name}"></label> <input
+							type="text" th:field="*{nombre}" class="form-control" id="nombre"
+							th:placeholder="#{AgregarTipoSala.nameHolder}" required="required"> <span
+							th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"
+							class="text-danger"></span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6 mt-5">
+						<input type="submit" class="btn btn-primary"
+							th:value="#{AgregarTipoSala.buttonAddRmTyp}">
+					</div>
+				</div>
+			</form>
+			<form method="get" action="/ListarTipoSala">
+				<div class="row">
+					<div class="col-md-6 mt-5">
+						<input type="submit" class="btn btn-primary" th:value="#{AgregarTipoSala.Return}">
+					</div>
+
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

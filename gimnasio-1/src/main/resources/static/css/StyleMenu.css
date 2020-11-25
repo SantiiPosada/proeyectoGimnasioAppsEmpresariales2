@@ -1,0 +1,44 @@
+@charset "ISO-8859-1";
+
+
+
+body {
+    overflow: hidden;
+    font-family: 'Mulish', sans-serif;
+    font-weight: 300;
+    color: #111B54 !important;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.bg-primary {
+    background-color: #111B54 !important;
+}
+
+.bg-light {
+    background-color: #ffffff !important;
+}
+
+#sidebar-container {
+    min-height: 100vh;
+}
+
+#sidebar-container .logo {
+    padding: .875rem 1.25rem;
+}
+
+
+
+.menu{
+	 width: 18rem;
+    overflow-y: scroll;
+}
+
+.btn-search {
+    right: 5px;
+}
+.d-flex {
+    height: 40px;
+}
