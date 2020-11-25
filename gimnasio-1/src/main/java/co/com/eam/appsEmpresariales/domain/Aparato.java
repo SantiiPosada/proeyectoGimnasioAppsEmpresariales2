@@ -36,5 +36,5 @@ public class Aparato implements Serializable {
 	@NotNull(message = "{DomainAparato.room}")
 	@JoinColumn(name = "IdSala")
 	private Sala sala;
-
+//comit
 }
