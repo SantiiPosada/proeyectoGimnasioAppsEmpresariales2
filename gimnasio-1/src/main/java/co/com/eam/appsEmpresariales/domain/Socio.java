@@ -19,6 +19,7 @@ import java.util.List;
 
 
 
+
 //@NamedQuery(name = "Socio.findAll", query = "SELECT s FROM Socio s")
 public class Socio implements Serializable {
 	private static final long serialVersionUID = 1L;
