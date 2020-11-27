@@ -9,8 +9,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import co.com.eam.appsEmpresariales.domain.Clase;
+import co.com.eam.appsEmpresariales.domain.ClaseImpartir;
+import co.com.eam.appsEmpresariales.domain.ClasePuedenImpartirInstructor;
+import co.com.eam.appsEmpresariales.domain.Instructor;
 import co.com.eam.appsEmpresariales.domain.Socio;
 import co.com.eam.appsEmpresariales.domain.SocioClase;
 
@@ -35,8 +39,30 @@ public class SocioClaseController {
 	}
 
 	@GetMapping("/IrAgregarSocioCLase")
-	public String IrAgregarSocioCLase(SocioClase socioClase) {
-		return "AgregarSocioCLase";
+	public String IrAgregarSocioCLase(SocioClase socioClase,Model model) {
+		Iterable<Socio> ListaSocio = socioClaseRepo.ListarSocios();
+		Iterable<Clase> listaClase = socioClaseRepo.ListarClases();
+		model.addAttribute("sociosOrdenados", ListaSocio);
+		model.addAttribute("clasesOrdenadas", listaClase);
+		return "InscripcionClaseSocio";
+	}
+	@PostMapping("/AgregarSocioClase")
+	public String AgregarClasePuedeImaprtir(@Valid SocioClase socioClase, BindingResult result, Model model,RedirectAttributes attribute) {
+		Iterable<Socio> ListaSocio = socioClaseRepo.ListarSocios();
+		Iterable<Clase> listaClase = socioClaseRepo.ListarClases();
+		if (result.hasErrors()) {
+			
+			model.addAttribute("sociosOrdenados", ListaSocio);
+			model.addAttribute("clasesOrdenadas", listaClase);
+			return "IrAgregarSocioCLase";
+		}
+	
+		
+
+		socioClaseRepo.save(socioClase);
+		
+		attribute.addFlashAttribute("success", "Se guardó correctamente");
+		return "redirect:/IrAgregarSocioCLase";
 	}
 
 	@PostMapping("/AgregarSocioCLase")

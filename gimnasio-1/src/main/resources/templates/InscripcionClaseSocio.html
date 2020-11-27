@@ -25,21 +25,41 @@
 	<div class="row1">
 
 		<div class="listado1">
-			
-			<form action="#" method="post">
+			<div th:insert=Plantilla/Mensaje :: Mensajes></div>
 				<h2 class="mb-5" th:text="#{listaIncripcionClase.titles}"></h2>
+			
+			
+			<form action="#" th:action="@{/AgregarSocioClase}"
+				th:object="${socioClase}" method="post">
 				<div class="row">
 
 					<div class="form-group col-md-6">
-						<label for="inputState" th:text="#{listaIncripcionClase.name}"></label>
-						<select id="inputState" class="form-control">
-							<option value="0">Seleccione</option>
+						<label for="modelo" th:text="#{listaIncripcionClase.name}"></label> <select
+							th:field="*{clase.id}" id="idClase" required="required"
+							class="form-control">
 
-						</select>
 
+							<option th:fragment="clasesOrdenadas"
+								th:each="clasesOrde:${clasesOrdenadas} "
+								th:value="${clasesOrde.id}"
+								th:text="${clasesOrde.clasepuedenimpartirinstructor.claseImpartir.nombre +' - '+ clasesOrde.sala.ubicacion +' - '+ clasesOrde.clasepuedenimpartirinstructor.instructor.nombre +' - '+ clasesOrde.diaHora } " />
+						</select> <span th:if="${#fields.hasErrors('clase')}"
+							th:errors="*{clase}" class="text-danger"></span>
 					</div>
 
+					<div class="form-group col-md-6">
+						<label for="modelo"  th:text="Socio"></label> <select
+							th:field="*{socio.id}" id="idclaseImpartir"
+							required="required" class="form-control">
 
+
+							<option th:fragment="sociosOrdenados"
+								th:each="sociosOrde:${sociosOrdenados} "
+								th:value="${sociosOrde.id}"
+								th:text="${sociosOrde.nombre}" />
+						</select> <span th:if="${#fields.hasErrors('socio')}"
+							th:errors="*{socio}" class="text-danger"></span>
+					</div>
 
 				</div>
 
@@ -47,8 +67,7 @@
 
 				<div class="row">
 					<div class="col-md-6 mt-5">
-						<input type="button" class="btn btn-primary"
-							th:value="#{ListarIncripcionClase.Add}">
+						<input type="submit" class="btn btn-primary" th:value="#{ListarIncripcionClase.Add}">
 					</div>
 
 				</div>

@@ -28,16 +28,12 @@ public class SocioClase implements Serializable {
 	//bi-directional many-to-one association to Clase
 	@ManyToOne
 	@NotNull(message = "Debe ingresar la clase en la que va a estar el socio")
-	@Size(min=1, max=255, message = "El codigo debe de tener entre 1 a 255 números ")
-	@Pattern(regexp = "^[0-9]{1,255}$",message = "El codigo debe de tener al menos un número entero")
 	@JoinColumn(name="IdClase")
 	private Clase clase;
 
 	//bi-directional many-to-one association to Socio
 	@ManyToOne
 	@NotNull(message = "Debe ingresar el socio que va a estar en la clase")
-	@Size(min=1, max=255, message = "El codigo debe de tener entre 1 a 255 números ")
-	@Pattern(regexp = "^[0-9]{1,255}$",message = "El codigo debe de tener al menos un número entero")
 	@JoinColumn(name="IdSocio")
 	private Socio socio;
 

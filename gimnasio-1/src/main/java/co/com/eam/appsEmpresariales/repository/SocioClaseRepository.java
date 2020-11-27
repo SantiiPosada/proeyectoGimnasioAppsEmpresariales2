@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import co.com.eam.appsEmpresariales.domain.Clase;
-
+import co.com.eam.appsEmpresariales.domain.Instructor;
 import co.com.eam.appsEmpresariales.domain.Socio;
 import co.com.eam.appsEmpresariales.domain.SocioClase;
 
@@ -28,4 +28,10 @@ public interface SocioClaseRepository extends CrudRepository<SocioClase, Integer
 	@Query("select scls FROM SocioClase scls where scls.socio.Cedula= :cedula")
 	public Iterable<SocioClase> ListarSocioClasesPorCedulaSocio(@Param("cedula") String cedula);
 	
+	@Query("select x from Socio x Order By x.id")
+	public Iterable<Socio> ListarSocios();
+	
+	
+	@Query("select x from Clase x Order By x.id")
+	public Iterable<Clase> ListarClases();
 }
